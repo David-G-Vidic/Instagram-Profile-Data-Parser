@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Instagram Data Parser</title>
+        <H1>Instagram Data Parser</H1>
+    </head>
+
+
+<body>
+    <p>form:</p>
+    <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+            {{ form.file}}
+        </p>
+        <p><input type="submit" value="Upload" /></p>
+    </form>
+
+
+</body>
+
+</html>
