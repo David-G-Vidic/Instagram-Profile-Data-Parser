@@ -8,6 +8,8 @@
 
 
 <body>
+    {% if form %}
+
     <p>form:</p>
     <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -16,7 +18,13 @@
         </p>
         <p><input type="submit" value="Upload" /></p>
     </form>
+   {% endif %}
 
+   <p>
+    {% if page %}
+        Page: {{ page }}
+    {% endif %} 
+   </p> 
 
 </body>
 

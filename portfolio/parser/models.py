@@ -5,11 +5,16 @@ class Question(models.Model):
     pub_date = models.DateTimeField("date published")
 
 
+class Person(models.Model):
+    link = models.CharField(max_length=200)#56   https://www.instagram.com/ + name
+    name = models.CharField(max_length=30)
+    timestamp = models.IntegerField(default=0)
+
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
-
+  
 # Create your models here.
 
 # Goals with instagram parser app:

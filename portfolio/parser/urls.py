@@ -10,6 +10,7 @@ urlpatterns = [
 
     path('upload/', views.upload_file, name="upload"),
 
+    path('analyze_file/', views.analyze_file, name="analyze_file"),
 
     # # ex: /polls/5/
     # path("<int:question_id>/", views.detail, name="detail"),
