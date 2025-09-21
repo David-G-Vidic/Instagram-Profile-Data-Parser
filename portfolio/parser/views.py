@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Question
 from .forms import UploadFileForm
 import json
 from django.http import JsonResponse
@@ -8,11 +7,24 @@ from django.http import JsonResponse
 def handle_uploaded_file(f):
     print("String 3: " + f.name)
     #print(json.loads(str(f.read())))
-    print(f.read().decode().splitlines())
+   #works# print(f.read().decode().splitlines())
+    print("#########################")
+    #data_file = json.load(f, "r")
+    #print(data_file)
+    #data_file.close()
+    dataString = str(f.read().decode().splitlines())
+    #print(dataString)
+    dataDict = json.loads(dataString)
+    print(dataDict)
+    #with open("example.json", "r") as my_file:
+    #    dataFile = json.load(my_file)
+    
+    #print("LLLLLL " + dataFile)
+    #print(json.load("example.json"))
+
     with open("success.html", "wb+") as destination:
         for chunk in f.chunks():
             destination.write(chunk)
-    #UploadedFile.read(f)
 
 def index(request):
     return render(request, 'loadingpage.html', {'page': "Index"})
@@ -30,7 +42,16 @@ def upload_file(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES)
         print("First: " + request.FILES['file'].name)
-        handle_uploaded_file(request.FILES["file"])
+        file = request.FILES["file"]
+        #print(file.read()) 
+
+        #file.open()
+        handle_uploaded_file(file)
+        #with open(file.open(), "r") as my_file:
+        #    dataFile = json.load(my_file)
+        #    print(dataFile)
+#
+
         if form.is_valid():
             print("Second: " + request.FILES['file'].name)
             handle_uploaded_file(request.FILES["file"])
@@ -41,16 +62,3 @@ def upload_file(request):
 
 def analyze_file(request, form):
     return render(request, 'success.html', {'file': form})
-
-
-#def detail(request, question_id):
-#    return HttpResponse("You're looking at question %s." % question_id)
-#
-#
-#def results(request, question_id):
-#    response = "You're looking at the results of question %s."
-#    return HttpResponse(response % question_id)
-#
-#
-#def vote(request, question_id):
-#    return HttpResponse("You're voting on question %s." % question_id)
